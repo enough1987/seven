@@ -1,2 +1,2 @@
 
-console.log ( 'doc 1');
+console.log ( ' doc 1 ');
