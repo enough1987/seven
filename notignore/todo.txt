@@ -3,4 +3,4 @@
 
 Результаты разместить на сервере Github.
 
-https://github.com/enough1987/seven.git
+https://github.com/enough1987/seven.git 
