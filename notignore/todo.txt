@@ -2,3 +2,5 @@
 Реализовать с помощью AngularJS или React.JS. JSON источник в виде файла.
 
 Результаты разместить на сервере Github.
+
+https://github.com/enough1987/seven.git
