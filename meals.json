@@ -1,0 +1,5 @@
+"meals":[
+    {"name":"one", "price":"99", "description": "description # 1"}, 
+    {"name":"two", "price":"25", "description": "description # 2"}, 
+    {"name":"three","price":"48", "description": "description # 3"}
+]
