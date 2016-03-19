@@ -80,7 +80,12 @@
 
 .list-header {
 	width: 100%;
-	text-align: center;
+	padding: 10px 0 10px 10%;
 	font-size: 1.5em;
-	padding: 10px 0;
+
+}
+
+.list-body {
+	padding-left: 10%;
+	margin-top: 20px;
 }
