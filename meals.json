@@ -1,5 +1,8 @@
 "meals":[
-    {"name":"one", "price":"99", "description": "description # 1"}, 
-    {"name":"two", "price":"25", "description": "description # 2"}, 
-    {"name":"three","price":"48", "description": "description # 3"}
+    {"name":"one", "price":"99",  "img" : "img/meals.jpg",
+    "description": "description # 1"}, 
+    {"name":"two", "price":"25",  "img" : "img/crab-cakes.png",
+    "description": "description # 2"}, 
+    {"name":"three","price":"48", "img" : "img/bacon_and_eggs.jpg", 
+    "description": "description # 3"}
 ]
