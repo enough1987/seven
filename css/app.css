@@ -91,5 +91,47 @@
 
 .list-body {
 	padding-left: 10%;
+	margin-top: 10px;
+}
+
+.list-body__item {
+	margin-top: 5px;
+}
+
+.list-body__img {
+	width: 30%;
+	height: 80px;
+	float: left;
+}
+
+.list-body__text {
+	width: 70%;
+	padding-left: 5%;
+	float: right;
+	position: relative;	
+}
+
+.list-body__name {
+	font-size: 1.2em;
+
+}
+
+.list-body__button {
+	min-width: 20%;
+}
+
+.list-body__buy {
 	margin-top: 20px;
+	position: relative;
+}
+
+.list-body__buy-length {
+	padding-left: 10%;
+	margin-top: 10px;
+}
+
+.list-body__buy-button {
+	margin-left: 10%;
+	min-width: 20%;	
+	text-align: center;
 }
