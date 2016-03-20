@@ -141,12 +141,32 @@ List length is {this.props.list.length}</p>
   }
 });
 
+var Request = React.createClass({
+
+  componentDidMount: function() {
+    var that  = this;
+	var ajax=new XMLHttpRequest();
+	ajax.open('GET', this.props.source ,true);
+	ajax.send();
+	ajax.onreadystatechange=function(){
+   		if (ajax.readyState==4)  {
+   			that.props.setMeals( JSON.parse( ajax.responseText ) );
+      	}
+	};
+
+  },
+
+  render: function() {
+    return (  <div></div>  );
+  }
+});
        
 var App = React.createClass({
 
   getInitialState: function() {
     return {
-      list: []
+      list: [],
+      meals: []
     };
   },
 
@@ -207,9 +227,14 @@ var App = React.createClass({
 
 	};
 
+	var setMeals = function(data){
+		me.setState( { meals: data } );
+	};
+
     return (
       <div className="app">
-        <Goods meals={meals} setList={setList} />
+        <Request source="meals.json" setMeals={setMeals} />
+        <Goods meals={this.state.meals} setList={setList} />
         <List list={this.state.list} 
         deleteInList={deleteInList} 
         addItem={addItem} 

@@ -1,8 +1,8 @@
-"meals":[
+[
     {"id" : "1", "name":"one", "price":"99", 
     "img" : "img/meals.jpg", "description": "description # 1"}, 
     {"id" : "2", "name":"two", "price":"25", "img" : "img/crab-cakes.png", 
     "description": "description # 2"}, 
     {"id" : "3", "name":"three","price":"48", "img" : "img/bacon_and_eggs.jpg", 
     "description": "description # 3"}
-];
+]
