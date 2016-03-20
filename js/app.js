@@ -93,7 +93,7 @@ var List  = React.createClass({
 
   render: function() {
 
-var body ='';
+var body ='', total = 0;
 if (this.props.list.length) {
       body = this.props.list.map(function(item, index) {
         return (
@@ -123,10 +123,14 @@ if (this.props.list.length) {
             <div className='clearfix'> </div>
           </div>
         )
-      })
+      });
     } else {
       body = <p>No items are added to the list</p>
     }
+
+    this.props.list.map(function(item, index) {
+  		total = +total + (+item.price * +item.ordered );
+  	});
 
     return (
       <div className='list' >
@@ -142,6 +146,9 @@ if (this.props.list.length) {
             (this.props.list.length ? '' : 'none' ) } >
 <p className="list-body__buy-length">
 List length is {this.props.list.length}</p>
+<p className='list-body__buy-total'>
+  Total price is {total}
+</p>
 <input type='button' value='buy' className="list-body__buy-button" />
 	
             </div>

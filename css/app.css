@@ -130,6 +130,11 @@
 	margin-top: 10px;
 }
 
+.list-body__buy-total {
+	padding-left: 10%;
+	margin-top: 10px;	
+}
+
 .list-body__buy-button {
 	margin-left: 10%;
 	min-width: 20%;	
