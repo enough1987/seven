@@ -1,15 +1,24 @@
+;(function(){
 
-var meals =[
-    {"id" : "1", "name":"one", "price":"99", 
-    "img" : "img/meals.jpg", "description": "description # 1"}, 
-    {"id" : "2", "name":"two", "price":"25", "img" : "img/crab-cakes.png", 
-    "description": "description # 2"}, 
-    {"id" : "3", "name":"three","price":"48", "img" : "img/bacon_and_eggs.jpg", 
-    "description": "description # 3"}
-];
+var Request = React.createClass({
 
+  componentDidMount: function() {
+    var that  = this;
+	var ajax=new XMLHttpRequest();
+	ajax.open('GET', this.props.source ,true);
+	ajax.send();
+	ajax.onreadystatechange=function(){
+   		if (ajax.readyState==4)  {
+   			that.props.setMeals( JSON.parse( ajax.responseText ) );
+      	}
+	};
 
+  },
 
+  render: function() {
+    return (  <div></div>  );
+  }
+});
 
 var Goods  = React.createClass({
 
@@ -95,11 +104,11 @@ if (this.props.list.length) {
             	<p className="list-body__price">Price: 
             	${item.price * item.ordered}</p>
             	<p className="list-body__ordered">{item.ordered} item is ordered</p>            
-            	<input type='button' value='add more' 
+            	<input type='button' value='+' 
             	className="list-body__button"
             	data-index={index}  data-target='add'
             	/>
-            	<input type='button' value='subtract' 
+            	<input type='button' value='-' 
             	className="list-body__button"
             	data-index={index} data-target='subtract'
             	/> 
@@ -141,25 +150,6 @@ List length is {this.props.list.length}</p>
   }
 });
 
-var Request = React.createClass({
-
-  componentDidMount: function() {
-    var that  = this;
-	var ajax=new XMLHttpRequest();
-	ajax.open('GET', this.props.source ,true);
-	ajax.send();
-	ajax.onreadystatechange=function(){
-   		if (ajax.readyState==4)  {
-   			that.props.setMeals( JSON.parse( ajax.responseText ) );
-      	}
-	};
-
-  },
-
-  render: function() {
-    return (  <div></div>  );
-  }
-});
        
 var App = React.createClass({
 
@@ -195,36 +185,25 @@ var App = React.createClass({
         	me.state.list.push(item)       
 			me.setState( { list: me.state.list } );    				
 		}
-		console.log( me.state.list );
-
 	};
 
 	var deleteInList = function(index){
-
 		me.state.list.splice(index, 1);
 		me.setState( { list: me.state.list } );
-		console.log( me.state.list ); 
-		console.log( me.state.list.length ); 
 	};
 
 
 	var addItem = function(index){
-
 		me.state.list[index].ordered++;
 		me.setState( { list: me.state.list } );
-		console.log( me.state.list ); 
-
 	};
 
 	var subtractItem = function(index){
-
 		me.state.list[index].ordered--;
 		if ( me.state.list[index].ordered == 0) {
 			me.state.list.splice(index, 1);	
 		}
 		me.setState( { list: me.state.list } );
-		console.log( me.state.list ); 
-
 	};
 
 	var setMeals = function(data){
@@ -249,3 +228,9 @@ ReactDOM.render(
   <App />,
   document.getElementById('root')
 );
+
+
+
+
+
+})();
