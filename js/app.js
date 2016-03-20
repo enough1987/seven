@@ -71,6 +71,14 @@ var List  = React.createClass({
         if ( e.target.dataset.target == 'delete' ) {
 			this.props.deleteInList(e.target.dataset.index);
 		}
+	
+        if ( e.target.dataset.target == 'add' ) {
+			this.props.addItem(e.target.dataset.index);
+		}
+	
+        if ( e.target.dataset.target == 'subtract' ) {
+			this.props.subtractItem(e.target.dataset.index);
+		}		
 
 	},
 
@@ -87,15 +95,21 @@ if (this.props.list.length) {
             	<p className="list-body__price">Price: 
             	${item.price * item.ordered}</p>
             	<p className="list-body__ordered">{item.ordered} item is ordered</p>            
-            	<input type='button' value='add one more' 
+            	<input type='button' value='add more' 
             	className="list-body__button"
             	data-index={index}  data-target='add'
+            	/>
+            	<input type='button' value='subtract' 
+            	className="list-body__button"
+            	data-index={index} data-target='subtract'
             	/> 
             	<br />
             	<input type='button' value='delete' 
             	className="list-body__button"
             	data-index={index} data-target='delete'
             	/>
+
+
             </div>
             <div className='clearfix'> </div>
           </div>
@@ -167,17 +181,39 @@ var App = React.createClass({
 
 	var deleteInList = function(index){
 
-		//delete me.state.list[index];
 		me.state.list.splice(index, 1);
 		me.setState( { list: me.state.list } );
 		console.log( me.state.list ); 
 		console.log( me.state.list.length ); 
 	};
 
+
+	var addItem = function(index){
+
+		me.state.list[index].ordered++;
+		me.setState( { list: me.state.list } );
+		console.log( me.state.list ); 
+
+	};
+
+	var subtractItem = function(index){
+
+		me.state.list[index].ordered--;
+		if ( me.state.list[index].ordered == 0) {
+			me.state.list.splice(index, 1);	
+		}
+		me.setState( { list: me.state.list } );
+		console.log( me.state.list ); 
+
+	};
+
     return (
       <div className="app">
         <Goods meals={meals} setList={setList} />
-        <List list={this.state.list} deleteInList={deleteInList} />
+        <List list={this.state.list} 
+        deleteInList={deleteInList} 
+        addItem={addItem} 
+        subtractItem={subtractItem} />
       </div>
     );
   }
