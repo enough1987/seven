@@ -1,3 +1,4 @@
+
 var meals =[
     {"name":"one", "price":"99", "img" : "img/meals.jpg",
     "description": "description # 1"}, 
@@ -7,52 +8,19 @@ var meals =[
     "description": "description # 3"}
 ];
 
-var Store = {};
 
-Store.setList = function(){
-		if( !localStorage['list'] ) {
-			localStorage['list'] = JSON.stringify( [] );
-		};	
-		Store.list = JSON.parse ( localStorage['list'] );
-		return Store.list;
-};
-
-Store.pushToList = function (e) {
-	var item = {}, pass = 0;
-	item.name = e.target.dataset.name;
-	item.price = e.target.dataset.price;
-	item.description = e.target.dataset.description;
-	item.img = e.target.dataset.img;
-    
-    Store.setList();
-    if ( Store.list ) {
-    	for(var n in Store.list) {
-    		if (Store.list[n].name == item.name ) { pass++; }
-    		if (Store.list[n].price == item.price ) { pass++; }
-    		if (Store.list[n].description == item.description ) { pass++; }
-    		if (Store.list[n].img == item.img ) { pass++; }   			
-    		if ( pass == 4 ) {
-    			break;
-    		} else {
-    			pass = 0;
-    		}
-		}
-	}
-
-    if ( pass != 4 ) {
-    	Store.list.push( item );
-		localStorage['list'] = JSON.stringify( Store.list );
-	}
-
-
-	console.log( item );
-	console.log( Store.list );
-
-    e.preventDefault();
-};
 
 
 var Goods  = React.createClass({
+
+	handleClick: function(e) {
+	
+        if ( e.target.dataset.target == 'true' ) {
+			this.props.setList(e.target.dataset.name, e.target.dataset.price, 
+						e.target.dataset.img, e.target.dataset.description );
+		}
+
+	},
 
   render: function() {
 
@@ -65,11 +33,11 @@ var Goods  = React.createClass({
     				<p className="goods__item-body__name" >{item.name}:</p>
     				<p className="goods__item-body__price" >Price: ${item.price}</p>
     				<p className="goods__item-body__description" > {item.description}</p> 
-    				<input className="goods__item-body__add" 
+    				<input className="goods__item-body__add add_button" 
     				 type='button' value='Add to List' 
     				 data-name={item.name} data-price={item.price} 
     				 data-description={item.description} data-img={item.img} 
-    				 onClick={Store.pushToList}
+    				 data-target='true'
     				 />
     			</div>
     			<div className='clearfix'></div>
@@ -78,7 +46,8 @@ var Goods  = React.createClass({
 	})
 
   	return (
-    	<div className='goods' >
+
+    	<div className='goods' id='goods' onClick={this.handleClick}>
             <div className="goods__meals-header">
         		Meals
             </div>	
@@ -92,16 +61,25 @@ var Goods  = React.createClass({
 
 var List  = React.createClass({
 
-  getInitialState: function() {
-    return {
-      list: Store.setList()
-    };
-  },
-
   render: function() {
 
-  	var body = !this.state.list.length ? 'No items are added to the list' :
-  	'You are awesome';
+var body ='';
+if (this.props.list.length) {
+      body = this.props.list.map(function(item, index) {
+        return (
+          <div key={index}>
+            <p className="list-body__name">{item.name}:</p>
+            <p className="list-body__price">{item.price}</p>
+            <p className="list-body__img">{item.img}</p>
+            <p className="list-body__description">{item.description}</p>
+            <p className="list-body__ordered">{item.ordered}</p>            
+            <input type='button' value='add one more' />
+          </div>
+        )
+      })
+    } else {
+      body = <p>'No items are added to the list'</p>
+    }
 
     return (
       <div className='list' >
@@ -111,7 +89,14 @@ var List  = React.createClass({
             </div>
             <div className="list-body" >
 				{body}
-            </div>	      		
+            </div>
+            <div className={'list-body__buy ' + 
+            (this.props.list.length ? '' : 'none' ) } >
+<p className="list-body__buy-length">
+List length is {this.props.list.length}</p>
+<input type='button' value='buy' />
+	
+            </div>
       </div> 
     );
   }
@@ -119,11 +104,46 @@ var List  = React.createClass({
 
        
 var App = React.createClass({
+
+  getInitialState: function() {
+    return {
+      list: []
+    };
+  },
+
   render: function() {
+
+  	var me = this;
+
+	var setList = function(name, price, img, description) {
+        var item = {};
+        item.name = name;
+        item.price = price;
+        item.img = img;
+        item.description = description;
+        item.ordered = 1;
+
+        me.state.list.forEach(function(ite, i, arr) {
+        	var pass = 0;
+        	if ( ite.name == item.name) { pass++; }
+        	if ( ite.price == item.price) { pass++; }
+        	if ( ite.img == item.img) { pass++; }
+        	if ( ite.description == item.description) { pass++; } 
+        	if ( pass == 4 ) { item.ordered = 0 }     	
+        });
+
+        if ( item.ordered ) {
+        	me.state.list.push(item)       
+			me.setState( { list: me.state.list } );    				
+		}
+		console.log( me.state.list );
+
+	};
+
     return (
       <div className="app">
-        <Goods meals={meals} />
-        <List />
+        <Goods meals={meals} setList={setList} />
+        <List list={this.state.list} total={this.state.total} />
       </div>
     );
   }

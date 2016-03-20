@@ -16,6 +16,10 @@
 	clear: both;
 }
 
+.none {
+  display: none !important;
+}
+
 .goods {
 	position: relative;
 	width: 70%;	
