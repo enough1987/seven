@@ -150,12 +150,50 @@ List length is {this.props.list.length}</p>
   Total price is {total}
 </p>
 <input type='button' value='buy' className="list-body__buy-button" />
+
+<DounloadPDF list={this.props.list} total={total} />
 	
             </div>
+
       </div> 
     );
   }
 });
+
+
+var DounloadPDF  = React.createClass({
+
+  render: function() {
+
+    var that = this;
+  	var download = function(){
+
+    	var line = 10;
+  		var doc = new jsPDF();
+		doc.setFontSize(20);
+		doc.text(60, line, "Added to list");
+
+    that.props.list.map(function(item, index) {
+ 		doc.text(40, (line += 20), "Name : " + item.name ); 
+ 		doc.text(40, (line += 10), "Price : " + (+item.price * + item.ordered) );
+ 		doc.text(40, (line += 10), "Amount : " + item.ordered );		
+  	});
+
+ 		doc.text(40, (line += 20), "Total price : " + that.props.total );
+
+		doc.save('pdf-list.pdf');
+
+	}
+
+    return (
+      <p className='list-body__download'>
+      <a href='#' onClick={download}		
+      >Download PDF</a>
+      </p>
+    );
+  }
+});
+
 
        
 var App = React.createClass({

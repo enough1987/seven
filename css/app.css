@@ -140,3 +140,8 @@
 	min-width: 20%;	
 	text-align: center;
 }
+
+.list-body__download {
+	margin-left: 10%;
+	margin-top: 10px;	
+}
