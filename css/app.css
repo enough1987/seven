@@ -24,7 +24,7 @@
 	position: relative;
 	width: 70%;	
 	float: left;
-	border: 1px solid blue;
+
 }
 
 .goods__meals-header {
@@ -79,7 +79,7 @@
 	position: relative;
 	width: 30%;	
 	float: right;
-	border: 1px solid red;
+
 }
 
 .list-header {
@@ -144,4 +144,44 @@
 .list-body__download {
 	margin-left: 10%;
 	margin-top: 10px;	
+}
+
+@media screen and (max-width: 1100px) {
+
+	.goods__item-img {
+
+		height: 150px;
+	}
+
+	.list-body__img {
+		height: 70px;
+	}
+}
+
+@media screen and (max-width: 700px) {
+
+	.goods {
+		position: relative;
+		width: 100%;	
+		float: left;
+		border: 1px solid blue;
+	}
+
+
+	.goods__item-img {
+
+		height: 200px;
+	}
+
+	.list {
+		position: relative;
+		width: 100%;	
+		float: right;
+		border: 1px solid red;
+	}
+
+
+	.list-body__img {
+		height: 90px;
+	}	
 }

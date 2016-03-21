@@ -175,11 +175,11 @@ var DounloadPDF  = React.createClass({
 
     that.props.list.map(function(item, index) {
  		doc.text(40, (line += 20), "Name : " + item.name ); 
- 		doc.text(40, (line += 10), "Price : " + (+item.price * + item.ordered) );
- 		doc.text(40, (line += 10), "Amount : " + item.ordered );		
+ 		doc.text(40, (line += 10), "Price : $" + (+item.price * + item.ordered) );
+ 		doc.text(40, (line += 10), "Amount : " + item.ordered + " item");		
   	});
 
- 		doc.text(40, (line += 20), "Total price : " + that.props.total );
+ 		doc.text(40, (line += 20), "Total price : $" + that.props.total );
 
 		doc.save('pdf-list.pdf');
 
